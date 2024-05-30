@@ -1,52 +1,50 @@
-import { ScrollView, Text, View, Image, Pressable } from "react-native";
-import { Link, Redirect } from "expo-router";
+import {
+  Platform,
+  ScrollView,
+  StatusBar,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { images } from "../constants";
-import { Button } from "react-native-paper";
-
+import {
+  Bars3CenterLeftIcon,
+  MagnifyingGlassIcon,
+} from "react-native-heroicons/outline";
+import TrendingMoviesSnapCarosuel from "../components/TrendingMoviesSnapCarosuel";
+import MovieList from "../components/MovieList";
+import React, { useState } from "react";
+const ios = Platform.OS == "ios";
 export default function Index() {
-  return <Redirect href={"/schedule"}></Redirect>;
-  // return (
-  //   <SafeAreaView className="bg-primary h-full">
-  //     <ScrollView contentContainerStyle={{ height: "100%" }}>
-  //       <Pressable
-  //         className="w-full justify-center items-center h-full px-4"
-  //         onPress={() => {
-  //           console.log("pressing");
-  //         }}
-  //       >
-  //         <Image
-  //           source={images.logo}
-  //           className="w-[130px] h-[84px]"
-  //           resizeMode="contain"
-  //         />
-  //         <Image
-  //           source={images.cards}
-  //           className="max-w--[380px] w-full h-[300px]"
-  //           resizeMode="contain"
-  //         />
-  //         <View className="relative mt-5">
-  //           <Text className="text-3xl text-white font-bold text-center">
-  //             Discover Endless{"\n"}
-  //             Possibilities with{" "}
-  //             <Text className="text-secondary-200">Aora</Text>
-  //           </Text>
-  //         </View>
-  //         <Text className="text-gray-100 mt-7 text-center text-sm font-pregular ">
-  //           Where Creativity Meets Innovation: Embark on a Journey of Limitless
-  //           Exploration with Aora
-  //         </Text>
-  //         <Button
-  //           icon="camera"
-  //           mode="contained"
-  //           onPress={() => {
-  //             console.log("press");
-  //           }}
-  //         >
-  //           <Link href={"/home"}>hijjjjjjjjj</Link>
-  //         </Button>
-  //       </Pressable>
-  //     </ScrollView>
-  //   </SafeAreaView>
-  // );
+  const [trending, setTrending] = useState([1, 1, 1, 1, 3, 5, 5, 5, 5, 5]);
+  const [upcoming, setupcoming] = useState([1, 1, 1, 1, 3, 5, 5, 5, 5, 5]);
+  const [topRated, setTopRated] = useState([1, 1, 3, 5, 5, 5, 5, 5]);
+
+  return (
+    <View className="flex-1 bg-neutral-900">
+      {/* searchbar and logo */}
+      <SafeAreaView className={ios ? "-mb-2" : "mb-3"}>
+        <View className="flex-row items-center justify-between mx-4 ">
+          <Bars3CenterLeftIcon size="30" color="white" strokeWidth={2} />
+          <Text className="text-white text-3xl font-bold">
+            <Text className="text-red-500">C</Text>inemate
+          </Text>
+          <TouchableOpacity>
+            <MagnifyingGlassIcon size="30" color="white" strokeWidth={2} />
+          </TouchableOpacity>
+        </View>
+      </SafeAreaView>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingBottom: 10 }}
+      >
+        {/* trending movies carosuel */}
+        <TrendingMoviesSnapCarosuel data={trending} />
+        {/* upcoming movies */}
+        <MovieList title={"Upcoming Movies"} data={upcoming} />
+        {/* to rated */}
+        <MovieList title={"toRated Movies"} data={topRated} />
+      </ScrollView>
+    </View>
+  );
 }
