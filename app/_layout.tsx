@@ -5,6 +5,8 @@ export default function RootLayout() {
     <Stack>
       <Stack.Screen name="index" options={{ headerShown: false }} />
       <Stack.Screen name="movieScreen" options={{ headerShown: false }} />
+      <Stack.Screen name="personScreen" options={{ headerShown: false }} />
+      <Stack.Screen name="searchScreen" options={{ headerShown: false }} />
     </Stack>
   );
 }
